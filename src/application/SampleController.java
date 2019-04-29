@@ -271,17 +271,13 @@ public class SampleController implements Initializable{
 		// 2D Input Circles
 		ArrayList<ArrayList<Circle> > akCircles = new ArrayList<ArrayList<Circle> >(Arrays.asList(akRow1,akRow2,akRow3,akRow4,akRow5));		
 		
-		int i = 0;
-		while (correctPlace != 0) {
+		int i;
+		for (i = 0; i < correctPlace; i++) {
 			akCircles.get(rowCounter).get(i).setFill(Color.RED);
-			correctPlace--;
-			i++;
 		}
-		while (correctColor != 0) {
+		
+		for (i = correctPlace; i < correctColor; i++) {
 			akCircles.get(rowCounter).get(i).setFill(Color.WHITE);
-			i++;
-			correctColor--;
-			
 		}
 	
 	}
