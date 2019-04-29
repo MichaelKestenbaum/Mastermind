@@ -6,10 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.Dragboard;
 import javafx.scene.layout.BorderPane;
 
+
+
 /**
  * 
  * @author Boruch Shedrooz
  * @author Michael Kestenbaum
+ *
  * 
 */
 public class Main extends Application {
