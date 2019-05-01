@@ -1,5 +1,7 @@
 package application;
 
+
+
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -27,6 +29,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+
+/**
+ * 
+ * @author Baruch Shedrouz
+ * @author Michael Kestenbaum
+ *
+ * 
+*/
 
 public class SampleController implements Initializable{
 	
@@ -200,34 +210,40 @@ public class SampleController implements Initializable{
     	skip.add(1,0);
     	skip.add(2,0);
     	skip.add(3,0);
-		
-		
-		if((inputCircles.get(rowCounter).get(0).getFill().toString().compareTo(mcList.get(0).getFill().toString()) == 0)) {
-			skip.set(0,1);
-			correctPlace++;
-		}
-		if((inputCircles.get(rowCounter).get(1).getFill().toString().compareTo(mcList.get(1).getFill().toString()) == 0)) {
-			skip.set(1,1);
-			correctPlace++;
-		}
-		if((inputCircles.get(rowCounter).get(2).getFill().toString().compareTo(mcList.get(2).getFill().toString()) == 0)) {
-			skip.set(2,1);
-			correctPlace++;
-		}
-		if((inputCircles.get(rowCounter).get(3).getFill().toString().compareTo(mcList.get(3).getFill().toString()) == 0)) {
-			skip.set(3,1);
-			correctPlace++;
-		}
-
-		
-		ArrayList<Integer> skip1 = new ArrayList<Integer>(4);
+    	
+    	ArrayList<Integer> skip1 = new ArrayList<Integer>(4);
     	skip1.add(0,0);
     	skip1.add(1,0);
     	skip1.add(2,0);
     	skip1.add(3,0);	
+		
+		
+		if((inputCircles.get(rowCounter).get(0).getFill().toString().equals(mcList.get(0).getFill().toString()))) {
+			skip.set(0,1);
+			skip1.set(0, 1);
+			correctPlace++;
+		}
+		if((inputCircles.get(rowCounter).get(1).getFill().toString().equals(mcList.get(1).getFill().toString()))) {
+			skip.set(1,1);
+			skip1.set(1, 1);
+			correctPlace++;
+		}
+		if((inputCircles.get(rowCounter).get(2).getFill().toString().equals(mcList.get(2).getFill().toString()))) {
+			skip.set(2,1);
+			skip1.set(2, 1);
+			correctPlace++;
+		}
+		if((inputCircles.get(rowCounter).get(3).getFill().toString().equals(mcList.get(3).getFill().toString()))) {
+			skip.set(3,1);
+			skip1.set(3, 1);
+			correctPlace++;
+		}
+
+		
+		
 		for (int i = 0; i < 4 ; i++) {
 			for (int j = 0; j < 4; j++) {
-				if((inputCircles.get(rowCounter).get(j).getFill().toString().compareTo(mcList.get(i).getFill().toString()) == 0 && i!=j  && skip.get(i) == 0 && skip1.get(j) == 0)) {
+				if((inputCircles.get(rowCounter).get(j).getFill().toString().equals(mcList.get(i).getFill().toString()) && i!=j  && skip.get(i) == 0 && skip1.get(j) == 0)) {
 					
 						correctColor++;
 						skip.add(i,1);
@@ -253,10 +269,103 @@ public class SampleController implements Initializable{
 		
 		correctPlace = 0;
 		correctColor = 0;
-		//lockRow(); // locks the edit-ability of the current row.
+		lockRow(); // locks the edit-ability of the current row.
 		rowCounter++;
-		//unlockNextRow(); //unlocks the edit-ability of the next row.
-    }
+		unlockNextRow(); //unlocks the edit-ability of the next row.
+		
+		inputCircles.get(rowCounter).get(0).setOnDragOver(e -> {		
+			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	    	e.consume();
+		});
+		
+		
+		
+		inputCircles.get(rowCounter).get(0).setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			boolean success = false;
+	        if (db.hasString()) {
+	        	inputCircles.get(rowCounter).get(0).setFill(Color.valueOf(db.getString()));
+	            success = true;
+	        }
+	        e.setDropCompleted(success);
+	        
+	        e.consume();
+		});
+		
+		inputCircles.get(rowCounter).get(0).setOnMouseClicked(e -> {
+			inputCircles.get(rowCounter).get(0).setFill(Color.valueOf("#000000"));
+			e.consume();
+		});
+		
+		inputCircles.get(rowCounter).get(1).setOnDragOver(e -> {
+			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	    	e.consume();
+		});
+		
+		
+		inputCircles.get(rowCounter).get(1).setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			boolean success = false;
+	        if (db.hasString()) {
+	        	inputCircles.get(rowCounter).get(1).setFill(Color.valueOf(db.getString()));
+	            success = true;
+	        }
+	        e.setDropCompleted(success);
+	        
+	        e.consume();
+		});
+		
+		inputCircles.get(rowCounter).get(1).setOnMouseClicked(e -> {
+			inputCircles.get(rowCounter).get(1).setFill(Color.valueOf("#000000"));
+		});
+		
+		inputCircles.get(rowCounter).get(2).setOnDragOver(e -> {
+			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	    	e.consume();
+		});
+		
+		
+		inputCircles.get(rowCounter).get(2).setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			boolean success = false;
+	        if (db.hasString()) {
+	        	inputCircles.get(rowCounter).get(2).setFill(Color.valueOf(db.getString()));
+	            success = true;
+	        }
+	        e.setDropCompleted(success);
+	        
+	        e.consume();
+		});
+		
+		inputCircles.get(rowCounter).get(2).setOnMouseClicked(e -> {
+			inputCircles.get(rowCounter).get(2).setFill(Color.valueOf("##000000"));
+		});
+		
+		inputCircles.get(rowCounter).get(3).setOnDragOver(e -> {
+			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	    	e.consume();
+		});
+		
+		
+		inputCircles.get(rowCounter).get(3).setOnDragDropped(e -> {
+			Dragboard db = e.getDragboard();
+			boolean success = false;
+	        if (db.hasString()) {
+	        	inputCircles.get(rowCounter).get(3).setFill(Color.valueOf(db.getString()));
+	            success = true;
+	        }
+	        e.setDropCompleted(success);
+	        
+	        e.consume();
+		});
+		
+		inputCircles.get(rowCounter).get(3).setOnMouseClicked(e -> {
+			inputCircles.get(rowCounter).get(3).setFill(Color.valueOf("##000000"));
+		}); 
+		
+	}
+
+   
 	
 	
 	void displayState() {
@@ -276,7 +385,7 @@ public class SampleController implements Initializable{
 			akCircles.get(rowCounter).get(i).setFill(Color.RED);
 		}
 		
-		for (i = correctPlace; i < correctColor; i++) {
+		for (i = correctPlace; i < correctColor + correctPlace; i++) {
 			akCircles.get(rowCounter).get(i).setFill(Color.WHITE);
 		}
 	
@@ -472,18 +581,18 @@ public class SampleController implements Initializable{
 		
 		
 		
-		inputCircles.get(rowCounter).get(0).setOnDragOver(e -> {
+		c10.setOnDragOver(e -> {		
 			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 	    	e.consume();
 		});
 		
 		
 		
-		inputCircles.get(rowCounter).get(0).setOnDragDropped(e -> {
+		c10.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			boolean success = false;
 	        if (db.hasString()) {
-	        	inputCircles.get(rowCounter).get(0).setFill(Color.valueOf(db.getString()));
+	        	c10.setFill(Color.valueOf(db.getString()));
 	            success = true;
 	        }
 	        e.setDropCompleted(success);
@@ -491,22 +600,22 @@ public class SampleController implements Initializable{
 	        e.consume();
 		});
 		
-		inputCircles.get(rowCounter).get(0).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(0).setFill(Color.valueOf("#000000"));
+		c10.setOnMouseClicked(e -> {
+			c10.setFill(Color.valueOf("#000000"));
 			e.consume();
 		});
 		
-		inputCircles.get(rowCounter).get(1).setOnDragOver(e -> {
+		c20.setOnDragOver(e -> {
 			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 	    	e.consume();
 		});
 		
 		
-		inputCircles.get(rowCounter).get(1).setOnDragDropped(e -> {
+		c20.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			boolean success = false;
 	        if (db.hasString()) {
-	        	inputCircles.get(rowCounter).get(1).setFill(Color.valueOf(db.getString()));
+	        	c20.setFill(Color.valueOf(db.getString()));
 	            success = true;
 	        }
 	        e.setDropCompleted(success);
@@ -514,21 +623,21 @@ public class SampleController implements Initializable{
 	        e.consume();
 		});
 		
-		inputCircles.get(rowCounter).get(1).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(1).setFill(Color.valueOf("#000000"));
+		c20.setOnMouseClicked(e -> {
+			c20.setFill(Color.valueOf("#000000"));
 		});
 		
-		inputCircles.get(rowCounter).get(2).setOnDragOver(e -> {
+		c30.setOnDragOver(e -> {
 			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 	    	e.consume();
 		});
 		
 		
-		inputCircles.get(rowCounter).get(2).setOnDragDropped(e -> {
+		c30.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			boolean success = false;
 	        if (db.hasString()) {
-	        	inputCircles.get(rowCounter).get(2).setFill(Color.valueOf(db.getString()));
+	        	c30.setFill(Color.valueOf(db.getString()));
 	            success = true;
 	        }
 	        e.setDropCompleted(success);
@@ -536,21 +645,21 @@ public class SampleController implements Initializable{
 	        e.consume();
 		});
 		
-		inputCircles.get(rowCounter).get(2).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(2).setFill(Color.valueOf("##000000"));
+		c30.setOnMouseClicked(e -> {
+			c30.setFill(Color.valueOf("##000000"));
 		});
 		
-		inputCircles.get(rowCounter).get(3).setOnDragOver(e -> {
+		c40.setOnDragOver(e -> {
 			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 	    	e.consume();
 		});
 		
 		
-		inputCircles.get(rowCounter).get(3).setOnDragDropped(e -> {
+		c40.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			boolean success = false;
 	        if (db.hasString()) {
-	        	inputCircles.get(rowCounter).get(3).setFill(Color.valueOf(db.getString()));
+	        	c40.setFill(Color.valueOf(db.getString()));
 	            success = true;
 	        }
 	        e.setDropCompleted(success);
@@ -558,8 +667,8 @@ public class SampleController implements Initializable{
 	        e.consume();
 		});
 		
-		inputCircles.get(rowCounter).get(3).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(3).setFill(Color.valueOf("##000000"));
+		c40.setOnMouseClicked(e -> {
+			c40.setFill(Color.valueOf("##000000"));
 		}); 
 		
 	}

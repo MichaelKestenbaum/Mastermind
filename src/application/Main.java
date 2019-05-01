@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 
 /**
  * 
- * @author Boruch Shedrooz
+ * @author Baruch Shedrouz
  * @author Michael Kestenbaum
  *
  * 

@@ -1,10 +1,20 @@
 package application;
 
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+/**
+ * 
+ * @author Baruch Shedrouz
+ * @author Michael Kestenbaum
+ *
+ * 
+*/ 
 
 public class SampleApplication extends Application{
 
