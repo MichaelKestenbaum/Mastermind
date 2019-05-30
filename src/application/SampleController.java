@@ -1,7 +1,6 @@
 package application;
 
 
-
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -217,7 +215,8 @@ public class SampleController implements Initializable{
     	skip1.add(2,0);
     	skip1.add(3,0);	
 		
-		
+		// Check to see if the user's input matches the MasterCode.
+    	// If yes, mark that slot with a 1 in a new array so we don't double count it.
 		if((inputCircles.get(rowCounter).get(0).getFill().toString().equals(mcList.get(0).getFill().toString()))) {
 			skip.set(0,1);
 			skip1.set(0, 1);
@@ -240,12 +239,13 @@ public class SampleController implements Initializable{
 		}
 
 		
-		
+		// Check if the user's input is the right color in the wrong location without recounting the slots that were right color and right place
 		for (int i = 0; i < 4 ; i++) {
 			for (int j = 0; j < 4; j++) {
 				if((inputCircles.get(rowCounter).get(j).getFill().toString().equals(mcList.get(i).getFill().toString()) && i!=j  && skip.get(i) == 0 && skip1.get(j) == 0)) {
 					
 						correctColor++;
+						// Fill in the array with a 1 so we don't recount it
 						skip.add(i,1);
 						skip1.add(j,1);
 					
@@ -253,9 +253,7 @@ public class SampleController implements Initializable{
 			}
 				
 		}
-			System.out.println(correctPlace);
-			System.out.println(correctColor);
-
+			
 		// Show how many the user got correct place and color or just correct color
 		displayState();
 		
@@ -269,9 +267,13 @@ public class SampleController implements Initializable{
 		
 		correctPlace = 0;
 		correctColor = 0;
+		// Needed to lock the first row since it is enabled in the initialization
 		lockRow(); // locks the edit-ability of the current row.
-		rowCounter++;
-		unlockNextRow(); //unlocks the edit-ability of the next row.
+		//Prevents IndexOutOfBounds Exception by stopping incrementation
+		if (rowCounter != 4)
+			rowCounter++;
+		// This function is unnecessary because the rows unlock based on the incrementation
+		//unlockNextRow(); //unlocks the edit-ability of the next row.
 		
 		inputCircles.get(rowCounter).get(0).setOnDragOver(e -> {		
 			e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -338,7 +340,7 @@ public class SampleController implements Initializable{
 		});
 		
 		inputCircles.get(rowCounter).get(2).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(2).setFill(Color.valueOf("##000000"));
+			inputCircles.get(rowCounter).get(2).setFill(Color.valueOf("#000000"));
 		});
 		
 		inputCircles.get(rowCounter).get(3).setOnDragOver(e -> {
@@ -360,7 +362,7 @@ public class SampleController implements Initializable{
 		});
 		
 		inputCircles.get(rowCounter).get(3).setOnMouseClicked(e -> {
-			inputCircles.get(rowCounter).get(3).setFill(Color.valueOf("##000000"));
+			inputCircles.get(rowCounter).get(3).setFill(Color.valueOf("#000000"));
 		}); 
 		
 	}
@@ -457,6 +459,7 @@ public class SampleController implements Initializable{
 	 * Called: N/A
 	 */
 	void won() {
+		lockButton.setDisable(true);
 		mcPane.setVisible(true);
 		mcLabel.setVisible(true);
 		mcMessage.setVisible(true);
@@ -470,6 +473,7 @@ public class SampleController implements Initializable{
 * Called: N/A
 */
 	void lost() {
+		lockButton.setDisable(true);
 		mcPane.setVisible(true);
 		mcLabel.setVisible(true);
 		mcMessage.setVisible(true);
@@ -646,7 +650,7 @@ public class SampleController implements Initializable{
 		});
 		
 		c30.setOnMouseClicked(e -> {
-			c30.setFill(Color.valueOf("##000000"));
+			c30.setFill(Color.valueOf("#000000"));
 		});
 		
 		c40.setOnDragOver(e -> {
@@ -668,7 +672,7 @@ public class SampleController implements Initializable{
 		});
 		
 		c40.setOnMouseClicked(e -> {
-			c40.setFill(Color.valueOf("##000000"));
+			c40.setFill(Color.valueOf("#000000"));
 		}); 
 		
 	}
